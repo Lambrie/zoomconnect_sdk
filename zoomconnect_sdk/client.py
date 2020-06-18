@@ -1,4 +1,4 @@
-from zoomconnect_sdk.base_client import BaseClient
+from base_client import BaseClient
 
 
 class Client(BaseClient):
@@ -11,10 +11,11 @@ class Client(BaseClient):
 
       c = Client(api_token='api_token', account_email='account_email')
       try:
-        res = c.sendsms()
-        print res
+        message = c.send_sms("0000000000", "Welcome to ZoomConnect")
       except Exception as e:
-        print e
+        print(e)
+      else:
+        print(res)
     """
 
     # account : Core information related to your account
@@ -226,7 +227,7 @@ class Client(BaseClient):
 
         https://www.zoomconnect.com/interactive-api/#!/contacts/getAll
         """
-        return self.do('GET', f'/api/rest/v1/contacts/{contactId}')
+        return self.do('GET', f'/api/rest/v1/contacts/{contactId}.json')
 
     def create_contact(self, firstName, lastName, contactNumber, title, links=None):
         """Makes a call to POST /api/rest/v1/contacts/create.
@@ -272,7 +273,7 @@ class Client(BaseClient):
             "links": links,
             "title": title
         }
-        return self.do('POST', f'/api/rest/v1/contacts/{contactId}', req=req)
+        return self.do('POST', f'/api/rest/v1/contacts/{contactId}.json', req=req)
 
     def get_remove_contact_from_group(self, contactId, groupId):
         """Makes a call to GET /api/rest/v1/contacts/{contactId}/addFromGroup/{groupId}.
@@ -280,7 +281,7 @@ class Client(BaseClient):
 
         https://www.zoomconnect.com/interactive-api/#!/contacts/removeFromGroup
         """
-        return self.do('GET', f'/api/rest/v1/contacts/{contactId}/addFromGroup/{groupId}')
+        return self.do('GET', f'/api/rest/v1/contacts/{contactId}/addFromGroup/{groupId}.json')
 
     def remove_contact_from_group(self, contactId, groupId):
         """Makes a call to POST /api/rest/v1/contacts/{contactId}/addFromGroup/{groupId}.
@@ -288,23 +289,23 @@ class Client(BaseClient):
 
         https://www.zoomconnect.com/interactive-api/#!/contacts/removeFromGroup_0
         """
-        return self.do('POST', f'/api/rest/v1/contacts/{contactId}/addFromGroup/{groupId}')
+        return self.do('POST', f'/api/rest/v1/contacts/{contactId}/addFromGroup/{groupId}.json')
 
-    def get_add_contact_to_group(self, contactId, groupId):
+    def add_contact_to_group(self, contactId, groupId):
         """Makes a call to GET /api/rest/v1/contacts/{contactId}/addToGroup/{groupId}.
         Add a contact to a group
 
         https://www.zoomconnect.com/interactive-api/#!/contacts/addToGroup
         """
-        return self.do('GET', f'/api/rest/v1/contacts/{contactId}/addToGroup/{groupId}')
+        return self.do('GET', f'/api/rest/v1/contacts/{contactId}/addToGroup/{groupId}.json')
 
-    def add_contact_to_group(self, contactId, groupId):
-        """Makes a call to POST /api/rest/v1/contacts/{contactId}/addToGroup/{groupId}.
-        Add a contact to a group
-
-        https://www.zoomconnect.com/interactive-api/#!/contacts/addToGroup_0
-        """
-        return self.do('POST', f'/api/rest/v1/contacts/{contactId}/addToGroup/{groupId}')
+    # def add_contact_to_group(self, contactId, groupId):
+    #     """Makes a call to POST /api/rest/v1/contacts/{contactId}/addToGroup/{groupId}.
+    #     Add a contact to a group
+    #
+    #     https://www.zoomconnect.com/interactive-api/#!/contacts/addToGroup_0
+    #     """
+    #     return self.do('POST', f'/api/rest/v1/contacts/{contactId}/addToGroup/{groupId}.json')
 
     # groups: Manage groups
     def get_groups_all(self):
@@ -325,7 +326,7 @@ class Client(BaseClient):
 
         return self.do('GET', f'/api/rest/v1/groups/{groupId}.json')
 
-    def create_group(self, name, groupId, links=None):
+    def create_group(self, name, links=None):
         """ Makes a call to POST /api/rest/v1/groups/create
         Create a group
 
@@ -334,8 +335,7 @@ class Client(BaseClient):
 
         req = {
             "name": name,
-            "links": links,
-            "groupId": groupId
+            "links": links
         }
 
         return self.do('POST', f'/api/rest/v1/groups/create.json', req=req)
@@ -362,41 +362,41 @@ class Client(BaseClient):
 
         return self.do('DELETE', f'/api/rest/v1/groups/{groupId}.json')
 
-    def get_add_group_to_contact(self, groupId, contactId):
+    def add_group_to_contact(self, groupId, contactId):
         """ Makes a call to GET /api/rest/v1/groups/{groupId}/addContact/{contactId}
         Add a contact to a group
 
         https://www.zoomconnect.com/interactive-api/#!/groups/addContact
         """
 
-        return self.do('GET ', f'/api/rest/v1/groups/{groupId}/addContact/{contactId}')
+        return self.do('GET', f'/api/rest/v1/groups/{groupId}/addContact/{contactId}.json')
 
-    def add_group_to_contact(self, groupId, contactId):
-        """ Makes a call to POST /api/rest/v1/groups/{groupId}/addContact/{contactId}
-        Add a contact to a group
+    # def add_group_to_contact(self, groupId, contactId):
+    #     """ Makes a call to POST /api/rest/v1/groups/{groupId}/addContact/{contactId}
+    #     Add a contact to a group
+    #
+    #     https://www.zoomconnect.com/interactive-api/#!/groups/addContact_0
+    #     """
+    #
+    #     return self.do('POST', f'/api/rest/v1/groups/{groupId}/addContact/{contactId}.json')
 
-        https://www.zoomconnect.com/interactive-api/#!/groups/addContact_0
-        """
-
-        return self.do('POST ', f'/api/rest/v1/groups/{groupId}/addContact/{contactId}')
-
-    def get_remove_group_from_contact(self, groupId, contactId):
+    def remove_group_from_contact(self, groupId, contactId):
         """ Makes a call to GET /api/rest/v1/groups/{groupId}/removeContact/{contactId}
         Remove a contact from a group
 
         https://www.zoomconnect.com/interactive-api/#!/groups/removeContact
         """
 
-        return self.do('GET ', f'/api/rest/v1/groups/{groupId}/removeContact/{contactId}')
+        return self.do('GET ', f'/api/rest/v1/groups/{groupId}/removeContact/{contactId}.json')
 
-    def remove_group_from_contact(self, groupId, contactId):
-        """ Makes a call to POST /api/rest/v1/groups/{groupId}/removeContact/{contactId}
-        Remove a contact from a group
-
-        https://www.zoomconnect.com/interactive-api/#!/groups/removeContact_0
-        """
-
-        return self.do('POST ', f'/api/rest/v1/groups/{groupId}/removeContact/{contactId}')
+    # def remove_group_from_contact(self, groupId, contactId):
+    #     """ Makes a call to POST /api/rest/v1/groups/{groupId}/removeContact/{contactId}
+    #     Remove a contact from a group
+    #
+    #     https://www.zoomconnect.com/interactive-api/#!/groups/removeContact_0
+    #     """
+    #
+    #     return self.do('POST ', f'/api/rest/v1/groups/{groupId}/removeContact/{contactId}.json')
 
     # messages: Manage your messages
     def get_all_messages(self):
@@ -544,15 +544,15 @@ class Client(BaseClient):
 
         return self.do('PUT', f'/api/rest/v1/messages/{messageId}/markRead.json')
 
-    def post_mark_message_as_read(self, messageId):
-        """ Makes a call to POST /api/rest/v1/messages/{messageId}/markRead
-
-        Marks a message as read
-
-        https://www.zoomconnect.com/interactive-api/#!/messages/markRead_0
-        """
-
-        return self.do('POST', f'/api/rest/v1/messages/{messageId}/markRead.json')
+    # def post_mark_message_as_read(self, messageId):
+    #     """ Makes a call to POST /api/rest/v1/messages/{messageId}/markRead
+    #
+    #     Marks a message as read
+    #
+    #     https://www.zoomconnect.com/interactive-api/#!/messages/markRead_0
+    #     """
+    #
+    #     return self.do('POST', f'/api/rest/v1/messages/{messageId}/markRead.json')
 
     def mark_message_as_unread(self, messageId):
         """ Makes a call to PUT /api/rest/v1/messages/{messageId}/markUnread
@@ -564,15 +564,15 @@ class Client(BaseClient):
 
         return self.do('PUT', f'/api/rest/v1/messages/{messageId}/markUnread.json')
 
-    def post_mark_message_as_unread(self, messageId):
-        """ Makes a call to POST /api/rest/v1/messages/{messageId}/markUnread
-
-        Marks a message as read
-
-        https://www.zoomconnect.com/interactive-api/#!/messages/markUnread_0
-        """
-
-        return self.do('POST', f'/api/rest/v1/messages/{messageId}/markUnread.json')
+    # def post_mark_message_as_unread(self, messageId):
+    #     """ Makes a call to POST /api/rest/v1/messages/{messageId}/markUnread
+    #
+    #     Marks a message as read
+    #
+    #     https://www.zoomconnect.com/interactive-api/#!/messages/markUnread_0
+    #     """
+    #
+    #     return self.do('POST', f'/api/rest/v1/messages/{messageId}/markUnread.json')
 
     # templates : Manage your templates
     def get_all_templates(self):
@@ -616,9 +616,10 @@ class Client(BaseClient):
     def testRecipientNumber(self, number):
         try:
             number = str(number).replace("+", "")
+            int(number)
             if len(str(number)) >= self.valid_mobile_number_length:
-                return True, int(number)
+                return True, number
             else:
                 return False, number
-        except ValueError:
+        except Exception:
             return False, number

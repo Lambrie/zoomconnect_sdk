@@ -1,16 +1,13 @@
-import json
-import platform
-import requests
-import six
-import urllib.parse
+import json, platform, requests, six, urllib.parse
 
 try:
     from json.decoder import JSONDecodeError
 except ImportError:
     JSONDecodeError = ValueError
 
-from . import VERSION
-from zoomconnect_sdk.error import APIError
+# from . import VERSION
+VERSION = "0.0.1"
+from error import APIError
 
 DEFAULT_BASE_URL = 'https://www.zoomconnect.com/app/'
 DEFAULT_TIMEOUT = 10
@@ -85,6 +82,8 @@ class BaseClient:
                                    headers={"Content-Type": "application/json", "User-Agent": self.make_user_agent()},
                                    data=body,
                                    timeout=self.timeout)
+        if method.upper() in ["DELETE"] or len(res.text) == 0:
+            return True if res.status_code == 200 else False
         try:
             e = res.json()
             if 'error' in e and 'error_code' in e:
