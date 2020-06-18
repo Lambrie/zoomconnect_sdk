@@ -1,4 +1,4 @@
-from base_client import BaseClient
+from zoomconnect_sdk.base_client import BaseClient
 
 
 class Client(BaseClient):

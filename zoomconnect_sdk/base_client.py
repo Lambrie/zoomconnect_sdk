@@ -5,9 +5,8 @@ try:
 except ImportError:
     JSONDecodeError = ValueError
 
-# from . import VERSION
-VERSION = "0.0.1"
-from error import APIError
+from . import VERSION
+from .error import APIError
 
 DEFAULT_BASE_URL = 'https://www.zoomconnect.com/app/'
 DEFAULT_TIMEOUT = 10
@@ -82,8 +81,6 @@ class BaseClient:
                                    headers={"Content-Type": "application/json", "User-Agent": self.make_user_agent()},
                                    data=body,
                                    timeout=self.timeout)
-        if method.upper() in ["DELETE"] or len(res.text) == 0:
-            return True if res.status_code == 200 else False
         try:
             e = res.json()
             if 'error' in e and 'error_code' in e:
@@ -91,7 +88,7 @@ class BaseClient:
             return e
         except JSONDecodeError:
             if res.status_code == 200:
-                raise Exception(f"XML response not supported - {res.text}")
+                return True
             else:
                 raise Exception(f'zoomconnect: unknown API error ({res.status_code})')
 

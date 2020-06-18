@@ -6,14 +6,14 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setup(
-    name="zoomconnect-python-sdk",
+    name="zoomconnect_sdk",
     version=VERSION,
-    author="Lambo",
+    author="LambrieSteyn",
     author_email="lambrie45@gmail.com",
     description="Python Wrapper module for ZoomConnect API",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/pypa/sampleproject",
+    url="https://github.com/Lambrie/zoomconnect_sdk",
     packages=find_packages(exclude=['tests']),
     install_requires=['requests>=2.18.4', 'six>=1.11.0'],
     classifiers=[

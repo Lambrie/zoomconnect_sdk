@@ -9,4 +9,4 @@ except Exception as e:
     print(e)
 else:
     print(f"message sent {message}")
-    print(f"{oldBalance} -> {newBalance}")
+    print(f"{oldBalance.get('creditBalance', 0)} -> {newBalance.get('creditBalance', 0)}")
