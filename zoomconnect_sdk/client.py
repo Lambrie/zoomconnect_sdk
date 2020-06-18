@@ -387,7 +387,7 @@ class Client(BaseClient):
         https://www.zoomconnect.com/interactive-api/#!/groups/removeContact
         """
 
-        return self.do('GET ', f'/api/rest/v1/groups/{groupId}/removeContact/{contactId}.json')
+        return self.do('GET', f'/api/rest/v1/groups/{groupId}/removeContact/{contactId}.json')
 
     # def remove_group_from_contact(self, groupId, contactId):
     #     """ Makes a call to POST /api/rest/v1/groups/{groupId}/removeContact/{contactId}
