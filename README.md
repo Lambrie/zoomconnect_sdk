@@ -7,7 +7,7 @@ This Python package provides a wrapper for the [ZoomConnect API](https://www.zoo
 ### Installation
 
 ```
-pip install zoomconnect
+pip install zoomconnect-sdk
 ```
 
 ### Authentication
@@ -31,4 +31,4 @@ else:
 
 ### License
 
-[MIT]()
+[MIT](https://github.com/Lambrie/zoomconnect_sdk/blob/master/LICENSE)
