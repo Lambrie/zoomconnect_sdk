@@ -27,7 +27,7 @@ class Client(BaseClient):
         https://www.zoomconnect.com/interactive-api/#!/account/getBalance
         """
 
-        return self.do('GET', '/api/rest/v1/account/balance.json', req=None)
+        return self.do('GET', '/api/rest/v1/account/balance', req=None)
 
     def get_account_statistics(self):
         """Makes a call to GET /api/rest/v1/account/statistics.
@@ -39,7 +39,7 @@ class Client(BaseClient):
         https://www.zoomconnect.com/interactive-api/#!/account/getStatistics
         """
 
-        return self.do('GET', '/api/rest/v1/account/statistics.json', req=None)
+        return self.do('GET', '/api/rest/v1/account/statistics', req=None)
 
     def account_transfer(self, transferToEmail, numberOfCredits, transferFromEmail):
         """Makes a call to POST /api/rest/v1/account/transfer.
@@ -57,7 +57,7 @@ class Client(BaseClient):
             'transferFromEmailAddress': transferFromEmail
         }
 
-        return self.do('POST', '/api/rest/v1/account/transfer.json', req=req)
+        return self.do('POST', '/api/rest/v1/account/transfer', req=req)
 
     def get_account_user_by_email(self, email):
         """Makes a call to GET api/rest/v1/account/user.
@@ -66,7 +66,7 @@ class Client(BaseClient):
 
         https://www.zoomconnect.com/interactive-api/#!/account/search
         """
-        return self.do('GET', '/api/rest/v1/account/user.json', req=None, param={"searchEmail": email})
+        return self.do('GET', '/api/rest/v1/account/user', req=None, param={"searchEmail": email})
 
     def create_account_user(self, firstName, lastName, password, emailAddress, contactNumber, company=None, userId=None,
                             creditBalance=None):
@@ -92,7 +92,7 @@ class Client(BaseClient):
             "creditBalance": creditBalance
         }
 
-        return self.do('PUT', '/api/rest/v1/account/user.json', req=req)
+        return self.do('PUT', '/api/rest/v1/account/user', req=req)
 
     def update_account_user(self, userId, firstName, lastName, password, contactNumber):
         """Makes a call to POST /api/rest/v1/account/user/{userId}.
@@ -110,7 +110,7 @@ class Client(BaseClient):
             "userId": int(userId)
         }
 
-        return self.do('POST', f'/api/rest/v1/account/user.json/{userId}', req=req)
+        return self.do('POST', f'/api/rest/v1/account/user/{userId}', req=req)
 
     def get_account_user_by_userId(self, userId):
         """Makes a call to GET api/rest/v1/account/user/{userId}.
@@ -132,7 +132,7 @@ class Client(BaseClient):
 
         https://www.zoomconnect.com/interactive-api/#!/sms/send
         """
-        return self.do('GET', '/api/rest/v1/sms/send.json')
+        return self.do('GET', '/api/rest/v1/sms/send')
 
     def send_sms(self, recipientNumber, message, campaign=None, dateToSend=None, dataField=None):
         """Makes a call to POST /api/rest/v1/sms/send.
@@ -153,7 +153,7 @@ class Client(BaseClient):
             'message': message
         }
         # 5eea0cc1c0fa4d7d7d19501e
-        return self.do('POST', '/api/rest/v1/sms/send.json', req=req)
+        return self.do('POST', '/api/rest/v1/sms/send', req=req)
 
     def get_sms_bulk(self):
         """Makes a call to GET /api/rest/v1/sms/send-bulk.
@@ -161,7 +161,7 @@ class Client(BaseClient):
 
         https://www.zoomconnect.com/interactive-api/#!/sms/sendBulk
         """
-        return self.do('GET', '/api/rest/v1/sms/send-bulk.json')
+        return self.do('GET', '/api/rest/v1/sms/send-bulk')
 
     def send_sms_bulk(self, recipientNumbers, messages, campaign=None, dateToSend=None, dataField=None,
                       defaultDateToSend=None, messagesPerMinute=0):
@@ -210,7 +210,7 @@ class Client(BaseClient):
             "messagesPerMinute": messagesPerMinute
         }
 
-        return self.do('POST', '/api/rest/v1/sms/send-bulk.json', req=req)
+        return self.do('POST', '/api/rest/v1/sms/send-bulk', req=req)
 
     # contacts : Manage contacts
     def get_contacts_all(self):
@@ -219,7 +219,7 @@ class Client(BaseClient):
 
         https://www.zoomconnect.com/interactive-api/#!/contacts/getAll
         """
-        return self.do('GET', '/api/rest/v1/contacts/all.json')
+        return self.do('GET', '/api/rest/v1/contacts/all')
 
     def get_contact(self, contactId):
         """Makes a call to GET /api/rest/v1/contacts/{contactId}.
@@ -227,7 +227,7 @@ class Client(BaseClient):
 
         https://www.zoomconnect.com/interactive-api/#!/contacts/getAll
         """
-        return self.do('GET', f'/api/rest/v1/contacts/{contactId}.json')
+        return self.do('GET', f'/api/rest/v1/contacts/{contactId}')
 
     def create_contact(self, firstName, lastName, contactNumber, title, links=None):
         """Makes a call to POST /api/rest/v1/contacts/create.
@@ -246,7 +246,7 @@ class Client(BaseClient):
             "links": links,
             "title": title
         }
-        return self.do('POST', '/api/rest/v1/contacts/create.json', req=req)
+        return self.do('POST', '/api/rest/v1/contacts/create', req=req)
 
     def delete_contact(self, contactId):
         """Makes a call to DELETE /api/rest/v1/contacts/{contactId}.
@@ -254,7 +254,7 @@ class Client(BaseClient):
 
         https://www.zoomconnect.com/interactive-api/#!/contacts/delete
         """
-        return self.do('DELETE', f'/api/rest/v1/contacts/{contactId}')
+        return self.doText('DELETE', f'/api/rest/v1/contacts/{contactId}')
 
     def update_contact(self, contactId, firstName, lastName, contactNumber, title, links=None):
         """Makes a call to POST /api/rest/v1/contacts/{contactId}.
@@ -273,7 +273,7 @@ class Client(BaseClient):
             "links": links,
             "title": title
         }
-        return self.do('POST', f'/api/rest/v1/contacts/{contactId}.json', req=req)
+        return self.do('POST', f'/api/rest/v1/contacts/{contactId}', req=req)
 
     def get_remove_contact_from_group(self, contactId, groupId):
         """Makes a call to GET /api/rest/v1/contacts/{contactId}/addFromGroup/{groupId}.
@@ -281,7 +281,7 @@ class Client(BaseClient):
 
         https://www.zoomconnect.com/interactive-api/#!/contacts/removeFromGroup
         """
-        return self.do('GET', f'/api/rest/v1/contacts/{contactId}/addFromGroup/{groupId}.json')
+        return self.doText('GET', f'/api/rest/v1/contacts/{contactId}/addFromGroup/{groupId}')
 
     def remove_contact_from_group(self, contactId, groupId):
         """Makes a call to POST /api/rest/v1/contacts/{contactId}/addFromGroup/{groupId}.
@@ -289,7 +289,7 @@ class Client(BaseClient):
 
         https://www.zoomconnect.com/interactive-api/#!/contacts/removeFromGroup_0
         """
-        return self.do('POST', f'/api/rest/v1/contacts/{contactId}/addFromGroup/{groupId}.json')
+        return self.doText('POST', f'/api/rest/v1/contacts/{contactId}/addFromGroup/{groupId}')
 
     def add_contact_to_group(self, contactId, groupId):
         """Makes a call to GET /api/rest/v1/contacts/{contactId}/addToGroup/{groupId}.
@@ -297,7 +297,7 @@ class Client(BaseClient):
 
         https://www.zoomconnect.com/interactive-api/#!/contacts/addToGroup
         """
-        return self.do('GET', f'/api/rest/v1/contacts/{contactId}/addToGroup/{groupId}.json')
+        return self.doText('GET', f'/api/rest/v1/contacts/{contactId}/addToGroup/{groupId}')
 
     # def add_contact_to_group(self, contactId, groupId):
     #     """Makes a call to POST /api/rest/v1/contacts/{contactId}/addToGroup/{groupId}.
@@ -305,7 +305,7 @@ class Client(BaseClient):
     #
     #     https://www.zoomconnect.com/interactive-api/#!/contacts/addToGroup_0
     #     """
-    #     return self.do('POST', f'/api/rest/v1/contacts/{contactId}/addToGroup/{groupId}.json')
+    #     return self.do('POST', f'/api/rest/v1/contacts/{contactId}/addToGroup/{groupId}')
 
     # groups: Manage groups
     def get_groups_all(self):
@@ -315,7 +315,7 @@ class Client(BaseClient):
         https://www.zoomconnect.com/interactive-api/#!/groups/getAll
         """
 
-        return self.do('GET', f'/api/rest/v1/groups/all.json')
+        return self.do('GET', f'/api/rest/v1/groups/all')
 
     def get_group(self, groupId):
         """ Makes a call to GET /api/rest/v1/groups/{groupId}
@@ -324,7 +324,7 @@ class Client(BaseClient):
         https://www.zoomconnect.com/interactive-api/#!/groups/get
         """
 
-        return self.do('GET', f'/api/rest/v1/groups/{groupId}.json')
+        return self.do('GET', f'/api/rest/v1/groups/{groupId}')
 
     def create_group(self, name, links=None):
         """ Makes a call to POST /api/rest/v1/groups/create
@@ -338,7 +338,7 @@ class Client(BaseClient):
             "links": links
         }
 
-        return self.do('POST', f'/api/rest/v1/groups/create.json', req=req)
+        return self.do('POST', f'/api/rest/v1/groups/create', req=req)
 
     def update_group(self, name, groupId, links=None):
         """ Makes a call to POST /api/rest/v1/groups/{groupId}
@@ -351,7 +351,7 @@ class Client(BaseClient):
             "links": links,
             "groupId": groupId
         }
-        return self.do('POST', f'/api/rest/v1/groups/{groupId}.json', req=req)
+        return self.do('POST', f'/api/rest/v1/groups/{groupId}', req=req)
 
     def delete_group(self, groupId):
         """ Makes a call to DELETE /api/rest/v1/groups/{groupId}
@@ -360,7 +360,7 @@ class Client(BaseClient):
         https://www.zoomconnect.com/interactive-api/#!/groups/delete
         """
 
-        return self.do('DELETE', f'/api/rest/v1/groups/{groupId}.json')
+        return self.doText('DELETE', f'/api/rest/v1/groups/{groupId}')
 
     def add_group_to_contact(self, groupId, contactId):
         """ Makes a call to GET /api/rest/v1/groups/{groupId}/addContact/{contactId}
@@ -369,7 +369,7 @@ class Client(BaseClient):
         https://www.zoomconnect.com/interactive-api/#!/groups/addContact
         """
 
-        return self.do('GET', f'/api/rest/v1/groups/{groupId}/addContact/{contactId}.json')
+        return self.doText('GET', f'/api/rest/v1/groups/{groupId}/addContact/{contactId}')
 
     # def add_group_to_contact(self, groupId, contactId):
     #     """ Makes a call to POST /api/rest/v1/groups/{groupId}/addContact/{contactId}
@@ -378,7 +378,7 @@ class Client(BaseClient):
     #     https://www.zoomconnect.com/interactive-api/#!/groups/addContact_0
     #     """
     #
-    #     return self.do('POST', f'/api/rest/v1/groups/{groupId}/addContact/{contactId}.json')
+    #     return self.do('POST', f'/api/rest/v1/groups/{groupId}/addContact/{contactId}')
 
     def remove_group_from_contact(self, groupId, contactId):
         """ Makes a call to GET /api/rest/v1/groups/{groupId}/removeContact/{contactId}
@@ -387,7 +387,7 @@ class Client(BaseClient):
         https://www.zoomconnect.com/interactive-api/#!/groups/removeContact
         """
 
-        return self.do('GET', f'/api/rest/v1/groups/{groupId}/removeContact/{contactId}.json')
+        return self.doText('GET', f'/api/rest/v1/groups/{groupId}/removeContact/{contactId}')
 
     # def remove_group_from_contact(self, groupId, contactId):
     #     """ Makes a call to POST /api/rest/v1/groups/{groupId}/removeContact/{contactId}
@@ -396,7 +396,7 @@ class Client(BaseClient):
     #     https://www.zoomconnect.com/interactive-api/#!/groups/removeContact_0
     #     """
     #
-    #     return self.do('POST ', f'/api/rest/v1/groups/{groupId}/removeContact/{contactId}.json')
+    #     return self.do('POST ', f'/api/rest/v1/groups/{groupId}/removeContact/{contactId}')
 
     # messages: Manage your messages
     def get_all_messages(self):
@@ -407,7 +407,7 @@ class Client(BaseClient):
         https://www.zoomconnect.com/interactive-api/#!/messages/getAll
         """
 
-        return self.do('GET', f'/api/rest/v1/messages/all.json')
+        return self.do('GET', f'/api/rest/v1/messages/all')
 
     def get_message_analyses(self, message, recipientNumber):
         """ Makes a call to POST /api/rest/v1/messages/analyse/full
@@ -424,7 +424,7 @@ class Client(BaseClient):
             "recipientNumber": recipientNumber
         }
 
-        return self.do('POST', f'/api/rest/v1/messages/analyse/full.json', req=req)
+        return self.do('POST', f'/api/rest/v1/messages/analyse/full', req=req)
 
     def get_message_credit_cost(self, message, recipientNumber):
         """ Makes a call to POST /api/rest/v1/messages/analyse/message-credit-cost
@@ -442,7 +442,7 @@ class Client(BaseClient):
             "recipientNumber": recipientNumber
         }
 
-        return self.do('POST', f'/api/rest/v1/messages/analyse/message-credit-cost.json', req=req)
+        return self.doText('POST', f'/api/rest/v1/messages/analyse/message-credit-cost', req=req)
 
     def get_message_encoding(self, message, recipientNumber):
         """ Makes a call to POST /api/rest/v1/messages/analyse/message-encoding
@@ -459,7 +459,7 @@ class Client(BaseClient):
             "recipientNumber": recipientNumber
         }
 
-        return self.do('POST', f'/api/rest/v1/messages/analyse/message-encoding.json', req=req)
+        return self.doText('POST', f'/api/rest/v1/messages/analyse/message-encoding', req=req)
 
     def get_message_length(self, message, recipientNumber):
         """ Makes a call to POST /api/rest/v1/messages/analyse/message-length
@@ -476,7 +476,7 @@ class Client(BaseClient):
             "recipientNumber": recipientNumber
         }
 
-        return self.do('POST', f'/api/rest/v1/messages/analyse/message-length.json', req=req)
+        return self.doText('POST', f'/api/rest/v1/messages/analyse/message-length', req=req)
 
     def check_message_length_within_max(self, message, recipientNumber):
         """ Makes a call to POST /api/rest/v1/messages/analyse/message-length-within-max-allowed
@@ -493,7 +493,7 @@ class Client(BaseClient):
             "recipientNumber": recipientNumber
         }
 
-        return self.do('POST', f'/api/rest/v1/messages/analyse/message-length-within-max-allowed.json', req=req)
+        return self.doText('POST', f'/api/rest/v1/messages/analyse/message-length-within-max-allowed', req=req)
 
     def get_number_of_messages(self, message, recipientNumber):
         """ Makes a call to POST /api/rest/v1/messages/analyse/number-of-messages
@@ -512,7 +512,7 @@ class Client(BaseClient):
             "recipientNumber": recipientNumber
         }
 
-        return self.do('POST', f'/api/rest/v1/messages/analyse/number-of-messages.json', req=req)
+        return self.doText('POST', f'/api/rest/v1/messages/analyse/number-of-messages', req=req)
 
     def get_message(self, messageId):
         """ Makes a call to GET /api/rest/v1/messages/{messageId}
@@ -522,7 +522,7 @@ class Client(BaseClient):
         https://www.zoomconnect.com/interactive-api/#!/messages/get
         """
 
-        return self.do('GET', f'/api/rest/v1/messages/{messageId}.json')
+        return self.do('GET', f'/api/rest/v1/messages/{messageId}')
 
     def delete_message(self, messageId):
         """ Makes a call to DELETE /api/rest/v1/messages/{messageId}
@@ -532,7 +532,7 @@ class Client(BaseClient):
         https://www.zoomconnect.com/interactive-api/#!/messages/delete
         """
 
-        return self.do('DELETE', f'/api/rest/v1/messages/{messageId}.json')
+        return self.doText('DELETE', f'/api/rest/v1/messages/{messageId}')
 
     def mark_message_as_read(self, messageId):
         """ Makes a call to PUT /api/rest/v1/messages/{messageId}/markRead
@@ -542,7 +542,7 @@ class Client(BaseClient):
         https://www.zoomconnect.com/interactive-api/#!/messages/markRead
         """
 
-        return self.do('PUT', f'/api/rest/v1/messages/{messageId}/markRead.json')
+        return self.do('PUT', f'/api/rest/v1/messages/{messageId}/markRead')
 
     # def post_mark_message_as_read(self, messageId):
     #     """ Makes a call to POST /api/rest/v1/messages/{messageId}/markRead
@@ -552,7 +552,7 @@ class Client(BaseClient):
     #     https://www.zoomconnect.com/interactive-api/#!/messages/markRead_0
     #     """
     #
-    #     return self.do('POST', f'/api/rest/v1/messages/{messageId}/markRead.json')
+    #     return self.do('POST', f'/api/rest/v1/messages/{messageId}/markRead')
 
     def mark_message_as_unread(self, messageId):
         """ Makes a call to PUT /api/rest/v1/messages/{messageId}/markUnread
@@ -562,7 +562,7 @@ class Client(BaseClient):
         https://www.zoomconnect.com/interactive-api/#!/messages/markUnread
         """
 
-        return self.do('PUT', f'/api/rest/v1/messages/{messageId}/markUnread.json')
+        return self.do('PUT', f'/api/rest/v1/messages/{messageId}/markUnread')
 
     # def post_mark_message_as_unread(self, messageId):
     #     """ Makes a call to POST /api/rest/v1/messages/{messageId}/markUnread
@@ -572,7 +572,7 @@ class Client(BaseClient):
     #     https://www.zoomconnect.com/interactive-api/#!/messages/markUnread_0
     #     """
     #
-    #     return self.do('POST', f'/api/rest/v1/messages/{messageId}/markUnread.json')
+    #     return self.do('POST', f'/api/rest/v1/messages/{messageId}/markUnread')
 
     # templates : Manage your templates
     def get_all_templates(self):
@@ -583,7 +583,7 @@ class Client(BaseClient):
         https://www.zoomconnect.com/interactive-api/#!/templates/getAll
         """
 
-        return self.do('GET', f'/api/rest/v1/templates/all.json')
+        return self.do('GET', f'/api/rest/v1/templates/all')
 
     def get_template(self, templateId):
         """ Makes a call to GET /api/rest/v1/templates/{templateId}
@@ -593,7 +593,7 @@ class Client(BaseClient):
         https://www.zoomconnect.com/interactive-api/#!/templates/get
         """
 
-        return self.do('GET', f'/api/rest/v1/templates/{templateId}.json')
+        return self.do('GET', f'/api/rest/v1/templates/{templateId}')
 
     def delete_template(self, templateId):
         """ Makes a call to DELETE /api/rest/v1/templates/{templateId}
@@ -602,8 +602,7 @@ class Client(BaseClient):
 
         https://www.zoomconnect.com/interactive-api/#!/templates/delete
         """
-
-        return self.do('DELETE', f'/api/rest/v1/templates/{templateId}.json')
+        return self.doText('DELETE', f'/api/rest/v1/templates/{templateId}')
 
     # Pre flight static methods
     @staticmethod
