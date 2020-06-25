@@ -29,6 +29,9 @@ else:
     print(res)
 ```
 
+### Requirements
+Python 3.6+
+
 ### License
 
 [MIT](https://github.com/Lambrie/zoomconnect_sdk/blob/master/LICENSE)
