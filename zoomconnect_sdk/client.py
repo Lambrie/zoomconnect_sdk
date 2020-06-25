@@ -254,7 +254,7 @@ class Client(BaseClient):
 
         https://www.zoomconnect.com/interactive-api/#!/contacts/delete
         """
-        return self.doText('DELETE', f'/api/rest/v1/contacts/{contactId}')
+        return self.do('DELETE', f'/api/rest/v1/contacts/{contactId}',text=True)
 
     def update_contact(self, contactId, firstName, lastName, contactNumber, title, links=None):
         """Makes a call to POST /api/rest/v1/contacts/{contactId}.
@@ -281,7 +281,7 @@ class Client(BaseClient):
 
         https://www.zoomconnect.com/interactive-api/#!/contacts/removeFromGroup
         """
-        return self.doText('GET', f'/api/rest/v1/contacts/{contactId}/addFromGroup/{groupId}')
+        return self.do('GET', f'/api/rest/v1/contacts/{contactId}/addFromGroup/{groupId}',text=True)
 
     def remove_contact_from_group(self, contactId, groupId):
         """Makes a call to POST /api/rest/v1/contacts/{contactId}/addFromGroup/{groupId}.
@@ -289,7 +289,7 @@ class Client(BaseClient):
 
         https://www.zoomconnect.com/interactive-api/#!/contacts/removeFromGroup_0
         """
-        return self.doText('POST', f'/api/rest/v1/contacts/{contactId}/addFromGroup/{groupId}')
+        return self.do('POST', f'/api/rest/v1/contacts/{contactId}/addFromGroup/{groupId}',text=True)
 
     def add_contact_to_group(self, contactId, groupId):
         """Makes a call to GET /api/rest/v1/contacts/{contactId}/addToGroup/{groupId}.
@@ -297,7 +297,7 @@ class Client(BaseClient):
 
         https://www.zoomconnect.com/interactive-api/#!/contacts/addToGroup
         """
-        return self.doText('GET', f'/api/rest/v1/contacts/{contactId}/addToGroup/{groupId}')
+        return self.do('GET', f'/api/rest/v1/contacts/{contactId}/addToGroup/{groupId}',text=True)
 
     # def add_contact_to_group(self, contactId, groupId):
     #     """Makes a call to POST /api/rest/v1/contacts/{contactId}/addToGroup/{groupId}.
@@ -360,7 +360,7 @@ class Client(BaseClient):
         https://www.zoomconnect.com/interactive-api/#!/groups/delete
         """
 
-        return self.doText('DELETE', f'/api/rest/v1/groups/{groupId}')
+        return self.do('DELETE', f'/api/rest/v1/groups/{groupId}',text=True)
 
     def add_group_to_contact(self, groupId, contactId):
         """ Makes a call to GET /api/rest/v1/groups/{groupId}/addContact/{contactId}
@@ -369,7 +369,7 @@ class Client(BaseClient):
         https://www.zoomconnect.com/interactive-api/#!/groups/addContact
         """
 
-        return self.doText('GET', f'/api/rest/v1/groups/{groupId}/addContact/{contactId}')
+        return self.do('GET', f'/api/rest/v1/groups/{groupId}/addContact/{contactId}',text=True)
 
     # def add_group_to_contact(self, groupId, contactId):
     #     """ Makes a call to POST /api/rest/v1/groups/{groupId}/addContact/{contactId}
@@ -387,7 +387,7 @@ class Client(BaseClient):
         https://www.zoomconnect.com/interactive-api/#!/groups/removeContact
         """
 
-        return self.doText('GET', f'/api/rest/v1/groups/{groupId}/removeContact/{contactId}')
+        return self.do('GET', f'/api/rest/v1/groups/{groupId}/removeContact/{contactId}',text=True)
 
     # def remove_group_from_contact(self, groupId, contactId):
     #     """ Makes a call to POST /api/rest/v1/groups/{groupId}/removeContact/{contactId}
@@ -442,7 +442,7 @@ class Client(BaseClient):
             "recipientNumber": recipientNumber
         }
 
-        return self.doText('POST', f'/api/rest/v1/messages/analyse/message-credit-cost', req=req)
+        return self.do('POST', f'/api/rest/v1/messages/analyse/message-credit-cost', req=req,text=True)
 
     def get_message_encoding(self, message, recipientNumber):
         """ Makes a call to POST /api/rest/v1/messages/analyse/message-encoding
@@ -459,7 +459,7 @@ class Client(BaseClient):
             "recipientNumber": recipientNumber
         }
 
-        return self.doText('POST', f'/api/rest/v1/messages/analyse/message-encoding', req=req)
+        return self.do('POST', f'/api/rest/v1/messages/analyse/message-encoding', req=req,text=True)
 
     def get_message_length(self, message, recipientNumber):
         """ Makes a call to POST /api/rest/v1/messages/analyse/message-length
@@ -476,7 +476,7 @@ class Client(BaseClient):
             "recipientNumber": recipientNumber
         }
 
-        return self.doText('POST', f'/api/rest/v1/messages/analyse/message-length', req=req)
+        return self.do('POST', f'/api/rest/v1/messages/analyse/message-length', req=req,text=True)
 
     def check_message_length_within_max(self, message, recipientNumber):
         """ Makes a call to POST /api/rest/v1/messages/analyse/message-length-within-max-allowed
@@ -493,7 +493,7 @@ class Client(BaseClient):
             "recipientNumber": recipientNumber
         }
 
-        return self.doText('POST', f'/api/rest/v1/messages/analyse/message-length-within-max-allowed', req=req)
+        return self.do('POST', f'/api/rest/v1/messages/analyse/message-length-within-max-allowed', req=req,text=True)
 
     def get_number_of_messages(self, message, recipientNumber):
         """ Makes a call to POST /api/rest/v1/messages/analyse/number-of-messages
@@ -512,7 +512,7 @@ class Client(BaseClient):
             "recipientNumber": recipientNumber
         }
 
-        return self.doText('POST', f'/api/rest/v1/messages/analyse/number-of-messages', req=req)
+        return self.do('POST', f'/api/rest/v1/messages/analyse/number-of-messages', req=req,text=True)
 
     def get_message(self, messageId):
         """ Makes a call to GET /api/rest/v1/messages/{messageId}
@@ -532,7 +532,7 @@ class Client(BaseClient):
         https://www.zoomconnect.com/interactive-api/#!/messages/delete
         """
 
-        return self.doText('DELETE', f'/api/rest/v1/messages/{messageId}')
+        return self.do('DELETE', f'/api/rest/v1/messages/{messageId}',text=True)
 
     def mark_message_as_read(self, messageId):
         """ Makes a call to PUT /api/rest/v1/messages/{messageId}/markRead
@@ -602,7 +602,7 @@ class Client(BaseClient):
 
         https://www.zoomconnect.com/interactive-api/#!/templates/delete
         """
-        return self.doText('DELETE', f'/api/rest/v1/templates/{templateId}')
+        return self.do('DELETE', f'/api/rest/v1/templates/{templateId}',text=True)
 
     # Pre flight static methods
     @staticmethod

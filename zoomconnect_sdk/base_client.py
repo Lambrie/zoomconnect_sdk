@@ -62,13 +62,14 @@ class BaseClient:
         self.timeout = timeout
 
 
-    def do(self, method, path, req=None, param=None):
+    def do(self, method, path, req=None, param=None, text=False):
         """Performs an API request and returns the response.
 
         :type method: str
         :type path: str
         :type req: dict
         :type param: dict
+        :type text: bool
 
         :return JSON body from API endpoint
         """
@@ -86,7 +87,8 @@ class BaseClient:
                                    data=body,
                                    timeout=self.timeout)
         try:
-            e = res.json()
+            if text: e = res.text()
+            else: e = res.json()
             if 'error' in e and 'error_code' in e:
                 raise APIError(e['error_code'], e['error'])
             return e
@@ -96,39 +98,6 @@ class BaseClient:
             else:
                 raise Exception(f'zoomconnect: unknown API error ({res.status_code})')
 
-    def doText(self, method, path, req=None, param=None):
-        """Performs an API request and returns the response.
-
-        :type method: str
-        :type path: str
-        :type req: dict
-        :type param: dict
-
-        :return JSON body from API endpoint
-        """
-        try:
-            body = json.dumps(req)
-        except Exception:
-            body = None
-        res = self.session.request(method,
-                                   self.make_url(path,param),
-                                   headers={
-                                       "Content-Type": "application/json",
-                                       "Accept": "application/json",
-                                       "User-Agent": self.make_user_agent()
-                                   },
-                                   data=body,
-                                   timeout=self.timeout)
-        try:
-            e = res.text
-            if 'error' in e and 'error_code' in e:
-                raise APIError(e['error_code'], e['error'])
-            return e
-        except JSONDecodeError:
-            if res.status_code == 200:
-                return True
-            else:
-                raise Exception(f'zoomconnect: unknown API error ({res.status_code})')
 
     def make_url(self, path, params):
         """
