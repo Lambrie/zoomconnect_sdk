@@ -87,16 +87,18 @@ class BaseClient:
                                    data=body,
                                    timeout=self.timeout)
         try:
-            if text: e = res.text()
-            else: e = res.json()
+            if text and res.status_code == 200:
+                # e = res.json() str object not callable
+                return True
+            else:
+                e = res.json()
             if 'error' in e and 'error_code' in e:
                 raise APIError(e['error_code'], e['error'])
             return e
         except JSONDecodeError:
-            if res.status_code == 200:
-                return True
-            else:
-                raise Exception(f'zoomconnect: unknown API error ({res.status_code})')
+            raise Exception(f'zoomconnect: Response error ({res.status_code})')
+        except Exception as e:
+            raise Exception(f'zoomconnect: API error ({res.status_code} - {e})')
 
 
     def make_url(self, path, params):
