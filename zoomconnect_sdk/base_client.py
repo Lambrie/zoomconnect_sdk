@@ -90,6 +90,8 @@ class BaseClient:
             if text and res.status_code == 200:
                 # e = res.json() str object not callable
                 return True
+            elif text:
+                return False
             else:
                 e = res.json()
             if 'error' in e and 'error_code' in e:
